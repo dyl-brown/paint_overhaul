@@ -24,6 +24,7 @@ public class SelectionRectangle {
     private PaintCanvas paintCanvas;
     double origX, origY;
     double endX, endY;
+    boolean isDragging = false;
     public SelectionRectangle(double startX, double startY, double endX, double endY) {
         origX = startX;
         origY = startY;
@@ -91,5 +92,12 @@ public class SelectionRectangle {
     }
     public void setEndY(double endY){
         this.endY = endY;
+    }
+    public void setIsDragging(boolean bool){
+        this.isDragging = bool;
+    }
+    public boolean getIsDragging(){
+        return isDragging;
+                
     }
 }

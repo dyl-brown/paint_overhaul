@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Scale;
 import javax.imageio.ImageIO;
@@ -210,28 +211,45 @@ public class PaintCanvas {
                         }
                         WritableImage newImage = new WritableImage(oldImg.getPixelReader(), (int)selection.getOrigX(), (int)selection.getOrigY(), (int)Math.abs(selection.getOrigX()-selection.getEndX()), (int)Math.abs(selection.getOrigY()-selection.getEndY()));
                         //selectedImage = newImage;
+                        Paint colorBeforeErase = gc.getFill();
                         currentSelection = new ImageView(newImage);
                         gc.setFill(Color.WHITE);
                         gc.fillRect(selection.getOrigX(), selection.getOrigY(), Math.abs(selection.getEndX() - selection.getOrigX()), Math.abs(selection.getEndY() - selection.getOrigY()));
                         
                         currentSelection.setX(selection.getOrigX()-5);
                         currentSelection.setY(selection.getOrigY()-5);
+                        
                         currentSelection.setOnMousePressed(event -> {
                             
                             selection.setOrigX(event.getX()- currentSelection.getX());
                             selection.setOrigY(event.getY()- currentSelection.getY());
                         });
                         currentSelection.setOnMouseDragged(event -> {
-                            System.out.println("DRAGGED1");
+                            //System.out.println("DRAGGED1");
                                 currentSelection.setX(event.getX()- selection.getOrigX());
                                 currentSelection.setY(event.getY()- selection.getOrigY());
                                 event.consume();
-                                System.out.println("DRAGGED");
+                                //System.out.println("DRAGGED");
+                                //selection.setEndX(currentSelection.getX());
+                                //selection.setEndY(currentSelection.getY());
+                                //selection.setIsDragging(true);
+                        });
+                        currentSelection.setOnMouseReleased(event -> {
+                                //selection.setIsDragging(false);
+                                Main.paintController.getStaticPane().getChildren().remove(currentSelection);
+                            gc.drawImage(currentSelection.getImage(),currentSelection.getX(),currentSelection.getY());
+                            //selection.getOrigX(), selection.getOrigY(), currentSelection.getX()-selection.getOrigX(), currentSelection.getY()-selection.getOrigY()
                         });
                         double width = selection.getEndX() - selection.getOrigX();
                         double height = selection.getEndY() - selection.getOrigY();
                         //gc.drawImage(currentSelection.getImage(), selection.getEndX(),selection.getEndY());
                         Main.paintController.getStaticPane().getChildren().add(currentSelection);
+                        gc.setFill(colorBeforeErase);
+                        //if(selection.getIsDragging()==false){
+                            //Main.paintController.getStaticPane().getChildren().remove(currentSelection);
+                            //gc.drawImage(currentSelection.getImage(), selection.getOrigX(), selection.getOrigY(), selection.getEndX()-selection.getOrigX(),selection.getEndY()-selection.getOrigY());
+                       // }
+                        
                         //selection.setImage(gc);
                     }
                     

@@ -40,7 +40,7 @@ public class Rectangle extends PaintShape {
         gc.setFill(Color.TRANSPARENT);
         gc.setStroke(Color.BLACK);
         gc.setLineDashes(4);
-        gc.setLineWidth(2);
+        gc.setLineWidth(1);
         gc.fillRect(xPositive ? x0 : x1, yPositive ? y0 : y1, xPositive ? x1-x0 : x0-x1, yPositive ? y1-y0 : y0-y1);
         gc.strokeRect(xPositive ? x0 : x1, yPositive ? y0 : y1, xPositive ? x1-x0 : x0-x1, yPositive ? y1-y0 : y0-y1);
         gc.setStroke(beforeStrokeColor);
