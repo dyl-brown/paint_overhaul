@@ -236,19 +236,16 @@ public class PaintCanvas {
                         });
                         currentSelection.setOnMouseReleased(event -> {
                                 //selection.setIsDragging(false);
-                                Main.paintController.getStaticPane().getChildren().remove(currentSelection);
+                            Main.paintController.getStaticPane().getChildren().remove(currentSelection);
                             gc.drawImage(currentSelection.getImage(),currentSelection.getX(),currentSelection.getY());
                             //selection.getOrigX(), selection.getOrigY(), currentSelection.getX()-selection.getOrigX(), currentSelection.getY()-selection.getOrigY()
+                            currentSelection = null;
                         });
                         double width = selection.getEndX() - selection.getOrigX();
                         double height = selection.getEndY() - selection.getOrigY();
                         //gc.drawImage(currentSelection.getImage(), selection.getEndX(),selection.getEndY());
                         Main.paintController.getStaticPane().getChildren().add(currentSelection);
                         gc.setFill(colorBeforeErase);
-                        //if(selection.getIsDragging()==false){
-                            //Main.paintController.getStaticPane().getChildren().remove(currentSelection);
-                            //gc.drawImage(currentSelection.getImage(), selection.getOrigX(), selection.getOrigY(), selection.getEndX()-selection.getOrigX(),selection.getEndY()-selection.getOrigY());
-                       // }
                         
                         //selection.setImage(gc);
                     }
